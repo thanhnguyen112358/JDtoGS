@@ -1,0 +1,80 @@
+google:
+  sheet_id: "13ZIqA6ivGVaytihTSEFzl_-KU1VbgMYFchk-Gj-H7w0"
+  service_account_json: "D:/PythonJDtoGS/job-link-to-sheet-starter/job-link-to-sheet/service_account.json"
+  worksheet_name: "Thanh"
+
+defaults:
+  timezone: "America/New_York"
+  source: "LinkedIn"
+  status: "Applied"
+  date_format: "%-m/%-d/%Y"   # Windows: use "%#m/%#d/%Y"
+
+company_map:
+  "msd.wd5.myworkdayjobs.com": "Merck"
+  "pfizer.wd1.myworkdayjobs.com": "Pfizer"
+  "careers.microsoft.com": "Microsoft"  # works for non-ATS too
+  "jobs.lever.co": "Lever"  # generic Lever.co ATS
+  "boards.greenhouse.io": "Greenhouse"  # generic Greenhouse ATS
+  "indeed.com": "Indeed"  # generic Indeed job board
+  "linkedin.com": "LinkedIn"  # generic LinkedIn job board
+  "angel.co": "AngelList"  # generic AngelList job board
+  "stackoverflow.com/jobs": "StackOverflow"  # generic StackOverflow job board
+  "github.com/careers": "GitHub"  # generic GitHub job board
+
+# exact labels you want in the sheet (order = priority when multiple match)
+industry_allowed:
+  - Material
+  - Pharma
+  - Automobile
+  - Energy
+  - Chemistry
+  - Agriculture
+  - Cosmetics
+  - Environmental
+  - AI/ML
+  - Biology
+
+# map common synonyms → one of the allowed labels
+industry_aliases:
+  materials: Material
+  polymer: Material
+  batteries: Energy
+  battery: Energy
+  oil: Energy
+  petroleum: Energy
+  automotive: Automobile
+  car: Automobile
+  pharma: Pharma
+  pharmaceutical: Pharma
+  biotech: Biology
+  life science: Biology
+  bioinformatics: Biology
+  toxicology: Biology
+  ml: AI/ML
+  ai: AI/ML
+  machine learning: AI/ML
+  data science: AI/ML
+  chem: Chemistry
+  chemical: Chemistry
+  analytical: Chemistry
+  ag: Agriculture
+  agritech: Agriculture
+  crop: Agriculture
+  skincare: Cosmetics
+  beauty: Cosmetics
+  personal care: Cosmetics
+  environment: Environmental
+  sustainability: Environmental
+
+# keyword rules per label (first match wins; you can grow these)
+industry_rules:
+  Material: ["material", "polymer", "ceramic", "composite", "alloy", "metallurgy"]
+  Pharma: ["pharma", "pharmaceutical", "drug", "clinical", "gmp"]
+  Automobile: ["automotive", "vehicle", "ev", "autonomous", "powertrain"]
+  Energy: ["energy", "battery", "solar", "wind", "grid", "oil", "petroleum"]
+  Chemistry: ["chem", "chemical", "analytical", "synthesis", "spectroscopy"]
+  Agriculture: ["agriculture", "agritech", "crop", "soil", "fertilizer"]
+  Cosmetics: ["cosmetic", "skincare", "fragrance", "beauty"]
+  Environmental: ["environment", "remediation", "air quality", "wastewater", "esg"]
+  AI/ML: ["ai", "ml", "machine learning", "deep learning", "data science"]
+  Biology: ["bio", "biotech", "genomics", "toxicology", "microbiology", "cell"]

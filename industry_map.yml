@@ -1,0 +1,11 @@
+# Map lowercase keywords to an Industry label (pick from your agreed list)
+# The first match wins.
+chem: Chemistry
+chemical: Chemistry
+bio: Biology
+pharma: Biology
+energy: Energy
+aero: Aerospace
+finance: Finance
+account: Accounting
+data: Data/Analytics
