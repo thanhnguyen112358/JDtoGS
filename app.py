@@ -1,49 +1,66 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-JobLinkBot — add a job posting to a Google Sheet by URL.
+"""Job Description to Google Sheets (JDtoGS)
 
-Refactor highlights:
-- Consolidated and de-duplicated adapters.
-- Safer date-format handling across platforms.
-- More robust company resolution (JSON-LD → meta → URL patterns → domain).
-- Normalized industry classification via rules/aliases/allow-list.
-- Season/period detection from free text.
-- Defensive error handling around network and Sheets API.
+A command-line tool that scrapes job posting information from URLs and adds them to a Google Sheet.
+This tool helps automate job application tracking by parsing job details and organizing them
+systematically in a spreadsheet.
+
+Features:
+- Scrapes job posting details (title, company, location) from various job sites
+- Smart detection of company names, job titles, and industries
+- Detects application periods (Summer, Fall, etc.) from job descriptions
+- Supports multiple job board adapters (Workday, Greenhouse, Lever, LinkedIn, etc.)
+- Configurable mappings for companies and industries
+- Customizable field formatting and timezone settings
+
+Requirements:
+- Python 3.6+
+- Google API credentials (service account JSON)
+- Required Python packages: gspread, google-auth, requests, beautifulsoup4, 
+    pytz, pyyaml, tldextract
+
+Setup:
+1. Create a config.yml file in the same directory as the script
+2. Configure Google Sheets integration with a service account
+3. Optionally create an industry_map.yml for company/industry mappings
 
 Usage:
-  python joblinkbot_refactor.py add <job_url> [--source ... --status ... --industry ... --period ...]
+        python app.py add <job_url> [options]
 
-Expected config files (in the same directory as this script):
-  - config.yml
-  - industry_map.yml (optional)
+Options:
+        --source             Job source (e.g., LinkedIn, Referral)
+        --status             Application status (e.g., Applied, Interview)
+        --industry           Industry/sector
+        --period             Application period (e.g., Summer, Fall)
+        --company            Company name (overrides detected)
+        --title              Position title (overrides detected)
+        --location           Job location
+        --notes              Additional notes
+        --contact-person     Contact name
+        --contact-email      Contact email
+        --contact-phone      Contact phone
+        --next-followup      Next follow-up date
+        --interview-dates    Interview dates
+        --resume-version     Resume version used
+        --cover-letter-version  Cover letter version used
+        --offer-received     Offer status (Y/N)
+        --offer-details      Offer details
+        --decision-made      Decision status (Y/N)
 
-config.yml skeleton:
+Configuration:
+        config.yml should contain:
+        - Google Sheets integration details
+        - Default timezone
+        - Industry mappings
+        - Company name mappings
+        - Default field values
 
-  google:
-    service_account_json: "/path/to/service_account.json"
-    sheet_id: "<GOOGLE_SHEET_ID>"
-    worksheet_name: "Applications"   # optional; defaults to first tab
-  defaults:
-    timezone: "America/New_York"
-    date_format: "%Y-%m-%d %H:%M:%S"
-    source: "Job Board"
-    status: "Saved"
-  # Map exact hostnames to canonical company names (best signal)
-  company_map:
-    "msd.wd5.myworkdayjobs.com": "Merck"
-  # Rule priority: if any of the keys appear in text (title/company/url), assign the corresponding allow-list label
-  industry_rules:
-    "quant": "Finance"
-    "biotech": "Biotech"
-  # Acceptable industry labels for normalization
-  industry_allowed: ["Finance", "Biotech", "Tech", "Consulting", "Manufacturing", "Healthcare"]
-  # Aliases to canonical labels
-  industry_aliases:
-    quant: "Finance"
-    fintech: "Finance"
-    life sciences: "Biotech"
+Example:
+        python app.py add https://company.com/jobs/12345 --source "LinkedIn" --status "Applied"
 
+Author: Unknown
+License: Unknown
+# -*- coding: utf-8 -*-
 """
 
 from __future__ import annotations
