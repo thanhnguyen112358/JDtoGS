@@ -6,3 +6,4 @@ gspread
 google-auth
 PyYAML
 tldextract
+streamlit
