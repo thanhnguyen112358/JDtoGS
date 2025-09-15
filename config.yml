@@ -20,6 +20,7 @@ company_map:
   "angel.co": "AngelList"  # generic AngelList job board
   "stackoverflow.com/jobs": "StackOverflow"  # generic StackOverflow job board
   "github.com/careers": "GitHub"  # generic GitHub job board
+  "bristolmyerssquibb.wd5.myworkdayjobs.com": "Bristol Myers Squibb"
 
 # exact labels you want in the sheet (order = priority when multiple match)
 industry_allowed:
