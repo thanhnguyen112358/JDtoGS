@@ -229,3 +229,4 @@ except Exception:
     print("[JobLinkBot] FATAL error in app body:", tb)
     st.error("Fatal error while building the page.")
     st.code(tb)
+    st.stop()
